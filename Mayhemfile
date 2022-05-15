@@ -1,0 +1,5 @@
+project: rnshah9/mayhem-lisp
+target: komplott
+
+cmds:
+  - cmd: /repo/komplott @@
