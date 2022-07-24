@@ -2,4 +2,4 @@ project: lisp
 target: komplott
 
 cmds:
-  - cmd: /repo/komplott @@
+  - cmd: /komplott @@
