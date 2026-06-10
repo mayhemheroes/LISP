@@ -1,0 +1,36 @@
+<lambda (c) ((car (cdr c)))>
+<lambda (c) ((cdr (car c)))>
+<lambda (c) ((car (car c)))>
+<lambda (c) ((cdr (cdr c)))>
+<lambda (c) ((car (car (cdr c))))>
+<lambda (c) ((car (cdr (car c))))>
+<lambda (c) ((car (car (car c))))>
+<lambda (c) ((car (cdr (cdr c))))>
+<lambda (c) ((cdr (car (cdr c))))>
+<lambda (c) ((cdr (cdr (car c))))>
+<lambda (c) ((cdr (car (car c))))>
+<lambda (c) ((cdr (cdr (cdr c))))>
+<lambda (x) ((cond ((null? x) #t) (#t #f)))>
+<lambda (x) ((cond ((null? x) #f) ((pair? x) #f) (#t #t)))>
+#t
+<lambda (expr expect) ((display (cond ((equal? expr expect) (quote pass:_)) (else (quote fail:_)))) (display expr) (newline))>
+<lambda (x y a) ((cond ((null? x) a) (else (cons (cons (car x) (car y)) (pairlis (cdr x) (cdr y) a)))))>
+<lambda (x a) ((cond ((equal? (caar a) x) (car a)) (else (assoc x (cdr a)))))>
+<lambda (x) ((cond ((null? x) #t) ((atom? x) #t) (else #f)))>
+<lambda (c a) ((cond ((eval (caar c) a) (eval (cadar c) a)) (else (evcon (cdr c) a))))>
+<lambda (m a) ((cond ((null? m) #f) (else (cons (eval (car m) a) (evlis (cdr m) a)))))>
+<lambda (fun x a) ((cond ((atom2 fun) (cond ((equal? fun (quote CAR)) (caar x)) ((equal? fun (quote CDR)) (cdar x)) ((equal? fun (quote CONS)) (cons (car x) (cadr x))) ((equal? fun (quote ATOM)) (atom2 (car x))) ((equal? fun (quote EQ)) (equal? (car x) (cadr x))) (else (apply (eval fun a) x a)))) ((equal? (car fun) (quote LAMBDA)) (eval (caddr fun) (pairlis (cadr fun) x a))) ((equal? (car fun) (quote LABEL)) (apply (caddr fun) x (cons (cons (cadr fun) (caddr fun)) a)))))>
+<lambda (e a) ((cond ((atom2 e) (cdr (assoc e a))) ((atom2 (car e)) (cond ((equal? (car e) (quote QUOTE)) (cadr e)) ((equal? (car e) (quote COND)) (evcon (cdr e) a)) (else (apply (car e) (evlis (cdr e) a) a)))) (else (apply (car e) (evlis (cdr e) a) a))))>
+<lambda (fn x) ((apply fn x (quote ())))>
+pass:_((a . 1) (b . 2) (c . 3))
+()
+pass:_(x . 3)
+()
+pass:_()
+()
+pass:_2
+()
+pass:_((A . A) (B . B) (C . C))
+()
+pass:_(A C D)
+()

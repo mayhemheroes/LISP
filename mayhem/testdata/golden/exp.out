@@ -1,0 +1,5 @@
+<lambda (base pow) ((cond ((equal? pow 0) 1) (#t (* base (exp base (- pow 1))))))>
+<lambda (x) ((display x) (newline))>
+<lambda () ((displayln (exp 2 16)))>
+65536
+()

@@ -1,0 +1,17 @@
+<lambda (x) ((cond ((null? x) #f) ((pair? x) #f) (#t #t)))>
+<lambda (x) ((car (cdr x)))>
+<lambda (x) ((display x) (newline))>
+hello-world
+()
+hello-world
+()
+goodbye-world
+()
+1
+()
+2
+()
+<lambda (x) ((cond ((pair? x) (ff (car x))) (#t x)))>
+<lambda (f l) ((cond ((null? l) #f) (#t (cons (f (car l)) (mapcar f (cdr l))))))>
+(5 3)
+()

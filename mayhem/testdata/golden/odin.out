@@ -1,0 +1,9 @@
+<lambda (x) ((display x) (newline))>
+<lambda (expr expect) ((cond ((equal? expr expect) ((lambda () (display (quote pass:_)) (displayln expr)))) (else ((lambda () (display (quote fail:_)) (displayln expr))))))>
+<lambda (l) ((cond ((null? l) 0) (else (+ 1 (length (cdr l))))))>
+()
+fac_15
+()
+<lambda (n) ((cond ((equal? n 0) 1) (else (* n (fac (- n 1))))))>
+()
+()

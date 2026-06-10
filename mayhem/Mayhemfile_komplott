@@ -1,0 +1,21 @@
+project: lisp
+target: komplott
+
+# File-input (CLI) target: feed the fuzz bytes as a LISP source file to the komplott interpreter.
+# komplott's main() (komplott.c) reads the program from a CLI path arg, then READS each top-level
+# form (lisp_read), EVALs it (lisp_eval) and PRINTs the result (lisp_print) until EOF — so the
+# fuzz bytes drive the whole reader + evaluator + GC pipeline, the natural fuzz surface. Not
+# libFuzzer: the interpreter binary IS the target, so the file-input target both fuzzes and serves
+# as its own single-input reproducer. @@ is the input-file placeholder.
+#
+# Ported from the old mayhemheroes integration's single target (old Mayhemfile: `/komplott @@`, the
+# binary the old Dockerfile.mayhem built via `make komplott`). Same shape and `target:` name, now
+# pointed at the base-image build output under /mayhem. A valid program runs to exit 0 (passing
+# seed); malformed input is caught by komplott's own reader/error paths (it exit(0)s at EOF), so
+# Mayhem obtains passing seeds and explores from there. ASan + UBSan are both ON and HALTING, so a
+# real memory/UB defect terminates the process (SIGABRT) and is recorded as a crash.
+cmds:
+  - cmd: /mayhem/komplott @@
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/komplott/testsuite
